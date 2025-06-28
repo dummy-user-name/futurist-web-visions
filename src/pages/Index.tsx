@@ -1,821 +1,310 @@
 
 const Index = () => {
   return (
-    <div className="portfolio-container">
-      <div dangerouslySetInnerHTML={{
-        __html: `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alex Chen - Full Stack Developer</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary-color: #00d4ff;
-            --secondary-color: #7c3aed;
-            --accent-color: #ff006e;
-            --text-primary: #ffffff;
-            --text-secondary: #b8c1ec;
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --shadow-glow: 0 8px 32px rgba(0, 212, 255, 0.15);
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(124, 58, 237, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(255, 0, 110, 0.05) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .glass-container {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            box-shadow: var(--shadow-glow);
-        }
-
-        .section {
-            padding: 4rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.3); }
-            50% { box-shadow: 0 0 40px rgba(0, 212, 255, 0.6); }
-        }
-
-        @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-            padding: 1rem 2rem;
-            animation: slideDown 0.8s ease-out;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateX(-50%) translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            padding: 0.5rem 1rem;
-            border-radius: 10px;
-        }
-
-        nav a:hover {
-            color: var(--primary-color);
-            background: var(--glass-bg);
-            transform: translateY(-2px);
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            animation-delay: 0.2s;
-        }
-
-        .hero-content {
-            z-index: 10;
-        }
-
-        .hero h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero .subtitle {
-            font-size: clamp(1.2rem, 3vw, 2rem);
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .cta-button:hover::before {
-            left: 100%;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(0, 212, 255, 0.4);
-        }
-
-        /* About Section */
-        .about {
-            animation-delay: 0.4s;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-text {
-            padding: 2rem;
-        }
-
-        .about h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary-color);
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .skill-item {
-            padding: 1rem;
-            text-align: center;
-            border-radius: 15px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .skill-item:hover {
-            transform: translateY(-5px) scale(1.05);
-            animation: glow 2s infinite;
-        }
-
-        /* Projects Section */
-        .projects {
-            animation-delay: 0.6s;
-        }
-
-        .projects h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: var(--primary-color);
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .project-card {
-            padding: 2rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .project-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
-        }
-
-        .project-card h3 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin: 1rem 0;
-        }
-
-        .tech-tag {
-            padding: 0.3rem 0.8rem;
-            background: var(--glass-bg);
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            border: 1px solid var(--glass-border);
-        }
-
-        .project-link {
-            display: inline-block;
-            margin-top: 1rem;
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .project-link:hover {
-            color: var(--accent-color);
-            transform: translateX(5px);
-        }
-
-        /* Blog Section */
-        .blog {
-            animation-delay: 0.8s;
-        }
-
-        .blog h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: var(--primary-color);
-        }
-
-        .blog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .blog-card {
-            padding: 2rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .blog-card:hover {
-            transform: translateY(-8px) rotateX(5deg);
-            box-shadow: 0 25px 50px rgba(124, 58, 237, 0.2);
-        }
-
-        .blog-date {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .blog-card h3 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        /* Resume Section */
-        .resume {
-            animation-delay: 1s;
-            text-align: center;
-        }
-
-        .resume h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            color: var(--primary-color);
-        }
-
-        .resume-content {
-            padding: 2rem;
-            margin: 2rem auto;
-            max-width: 600px;
-        }
-
-        .download-btn {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            margin: 2rem 0;
-        }
-
-        .download-btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(124, 58, 237, 0.4);
-        }
-
-        .resume-highlights {
-            list-style: none;
-            text-align: left;
-        }
-
-        .resume-highlights li {
-            padding: 0.5rem 0;
-            position: relative;
-            padding-left: 2rem;
-        }
-
-        .resume-highlights li::before {
-            content: '▶';
-            position: absolute;
-            left: 0;
-            color: var(--primary-color);
-        }
-
-        /* Contact Section */
-        .contact {
-            animation-delay: 1.2s;
-        }
-
-        .contact h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: var(--primary-color);
-        }
-
-        .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .contact-form {
-            padding: 2rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-secondary);
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 1rem;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 10px;
-            color: var(--text-primary);
-            font-family: inherit;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
-        }
-
-        .social-links {
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .social-link {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            padding: 1rem;
-            border-radius: 10px;
-            width: 100%;
-        }
-
-        .social-link:hover {
-            color: var(--primary-color);
-            background: var(--glass-bg);
-            transform: translateX(10px);
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: var(--text-secondary);
-            border-top: 1px solid var(--glass-border);
-            margin-top: 4rem;
-        }
-
-        .footer-social {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .footer-social a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 1.2rem;
-        }
-
-        .footer-social a:hover {
-            color: var(--primary-color);
-            transform: translateY(-3px);
-        }
-
-        /* Mobile Responsiveness */
-        @media (max-width: 768px) {
-            .section {
-                padding: 2rem 1rem;
-            }
-
-            nav {
-                top: 1rem;
-                padding: 0.5rem 1rem;
-            }
-
-            nav ul {
-                gap: 1rem;
-            }
-
-            nav a {
-                padding: 0.3rem 0.8rem;
-                font-size: 0.9rem;
-            }
-
-            .about-content,
-            .contact-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .skills-grid {
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero .subtitle {
-                font-size: 1.2rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .section h2 {
-                font-size: 2rem;
-            }
-
-            .cta-button {
-                padding: 0.8rem 1.5rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Navigation -->
-    <nav class="glass-container">
-        <ul>
-            <li><a href="#hero">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#blog">Blog</a></li>
-            <li><a href="#resume">Resume</a></li>
-            <li><a href="#contact">Contact</a></li>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white overflow-x-hidden">
+      {/* Animated background overlay */}
+      <div className="fixed inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-purple-500/10 pointer-events-none"></div>
+      <div className="fixed inset-0 bg-gradient-to-r from-transparent via-pink-500/5 to-transparent pointer-events-none"></div>
+
+      {/* Navigation */}
+      <nav className="fixed top-8 left-1/2 transform -translate-x-1/2 z-50 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl px-8 py-4 animate-[slideDown_0.8s_ease-out]">
+        <ul className="flex gap-8 text-sm font-medium">
+          <li><a href="#hero" className="text-slate-300 hover:text-cyan-400 hover:bg-white/10 px-4 py-2 rounded-lg transition-all duration-300 hover:-translate-y-1">Home</a></li>
+          <li><a href="#about" className="text-slate-300 hover:text-cyan-400 hover:bg-white/10 px-4 py-2 rounded-lg transition-all duration-300 hover:-translate-y-1">About</a></li>
+          <li><a href="#projects" className="text-slate-300 hover:text-cyan-400 hover:bg-white/10 px-4 py-2 rounded-lg transition-all duration-300 hover:-translate-y-1">Projects</a></li>
+          <li><a href="#blog" className="text-slate-300 hover:text-cyan-400 hover:bg-white/10 px-4 py-2 rounded-lg transition-all duration-300 hover:-translate-y-1">Blog</a></li>
+          <li><a href="#resume" className="text-slate-300 hover:text-cyan-400 hover:bg-white/10 px-4 py-2 rounded-lg transition-all duration-300 hover:-translate-y-1">Resume</a></li>
+          <li><a href="#contact" className="text-slate-300 hover:text-cyan-400 hover:bg-white/10 px-4 py-2 rounded-lg transition-all duration-300 hover:-translate-y-1">Contact</a></li>
         </ul>
-    </nav>
+      </nav>
 
-    <!-- Hero Section -->
-    <section id="hero" class="hero section">
-        <div class="hero-content">
-            <h1>Alex Chen</h1>
-            <p class="subtitle">Full Stack Developer</p>
-            <p style="font-size: 1.2rem; margin-bottom: 2rem; color: var(--text-secondary);">
-                Crafting digital experiences with cutting-edge technology
+      {/* Hero Section */}
+      <section id="hero" className="min-h-screen flex items-center justify-center text-center relative py-16 px-8 opacity-0 translate-y-12 animate-[fadeInUp_0.8s_ease-out_0.2s_forwards]">
+        <div className="z-10">
+          <h1 className="text-6xl md:text-8xl font-extrabold mb-4 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+            Alex Chen
+          </h1>
+          <p className="text-xl md:text-3xl text-slate-300 mb-8 animate-[float_3s_ease-in-out_infinite]">
+            Full Stack Developer
+          </p>
+          <p className="text-lg mb-8 text-slate-400 max-w-2xl mx-auto">
+            Crafting digital experiences with cutting-edge technology
+          </p>
+          <a 
+            href="#projects" 
+            className="inline-block px-8 py-4 bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-semibold rounded-full transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_15px_35px_rgba(0,212,255,0.4)] relative overflow-hidden group"
+          >
+            <span className="relative z-10">View My Work</span>
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-500"></div>
+          </a>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="py-16 px-8 max-w-6xl mx-auto opacity-0 translate-y-12 animate-[fadeInUp_0.8s_ease-out_0.4s_forwards]">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-[0_8px_32px_rgba(0,212,255,0.15)]">
+            <h2 className="text-4xl font-bold mb-4 text-cyan-400">About Me</h2>
+            <p className="mb-4 text-slate-300 leading-relaxed">
+              I'm a passionate full-stack developer with 5+ years of experience building 
+              modern web applications. I specialize in React, Node.js, and cloud technologies, 
+              with a keen eye for user experience and performance optimization.
             </p>
-            <a href="#projects" class="cta-button">View My Work</a>
+            <p className="text-slate-300 leading-relaxed">
+              When I'm not coding, you'll find me exploring new technologies, contributing to 
+              open-source projects, or sharing knowledge through technical writing and mentoring.
+            </p>
+          </div>
+          <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-[0_8px_32px_rgba(0,212,255,0.15)]">
+            <h3 className="text-2xl font-bold mb-6 text-cyan-400">Tech Stack</h3>
+            <div className="grid grid-cols-3 gap-4">
+              {[
+                { icon: '⚛️', name: 'React' },
+                { icon: '🟢', name: 'Node.js' },
+                { icon: '🐍', name: 'Python' },
+                { icon: '☁️', name: 'AWS' },
+                { icon: '🗄️', name: 'PostgreSQL' },
+                { icon: '🔷', name: 'TypeScript' }
+              ].map((skill, index) => (
+                <div 
+                  key={index}
+                  className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-4 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:shadow-[0_0_20px_rgba(0,212,255,0.3)] cursor-pointer"
+                >
+                  <div className="text-3xl mb-2">{skill.icon}</div>
+                  <div className="text-sm font-medium">{skill.name}</div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-    </section>
+      </section>
 
-    <!-- About Section -->
-    <section id="about" class="about section">
-        <div class="about-content">
-            <div class="about-text glass-container">
-                <h2>About Me</h2>
-                <p style="margin-bottom: 1rem;">
-                    I'm a passionate full-stack developer with 5+ years of experience building 
-                    modern web applications. I specialize in React, Node.js, and cloud technologies, 
-                    with a keen eye for user experience and performance optimization.
-                </p>
-                <p>
-                    When I'm not coding, you'll find me exploring new technologies, contributing to 
-                    open-source projects, or sharing knowledge through technical writing and mentoring.
-                </p>
+      {/* Projects Section */}
+      <section id="projects" className="py-16 px-8 max-w-6xl mx-auto opacity-0 translate-y-12 animate-[fadeInUp_0.8s_ease-out_0.6s_forwards]">
+        <h2 className="text-4xl font-bold text-center mb-12 text-cyan-400">Featured Projects</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {[
+            {
+              title: 'E-Commerce Platform',
+              description: 'A full-stack e-commerce solution built with React, Node.js, and Stripe integration. Features include real-time inventory management, advanced search, and responsive design.',
+              tech: ['React', 'Node.js', 'PostgreSQL', 'Stripe']
+            },
+            {
+              title: 'Task Management App',
+              description: 'A collaborative project management tool with real-time updates, drag-and-drop functionality, and team collaboration features.',
+              tech: ['Vue.js', 'Express', 'Socket.io', 'MongoDB']
+            },
+            {
+              title: 'AI-Powered Analytics Dashboard',
+              description: 'A data visualization platform with machine learning insights, featuring interactive charts and predictive analytics for business intelligence.',
+              tech: ['Python', 'Django', 'TensorFlow', 'D3.js']
+            }
+          ].map((project, index) => (
+            <div 
+              key={index}
+              className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 transition-all duration-300 hover:-translate-y-3 hover:shadow-[0_20px_40px_rgba(0,212,255,0.2)] cursor-pointer relative overflow-hidden group"
+            >
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
+              <h3 className="text-xl font-bold mb-4 text-cyan-400">{project.title}</h3>
+              <p className="text-slate-300 mb-4 leading-relaxed">{project.description}</p>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {project.tech.map((tech, techIndex) => (
+                  <span 
+                    key={techIndex}
+                    className="px-3 py-1 bg-white/10 border border-white/20 rounded-full text-xs text-slate-300"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+              <a 
+                href="#" 
+                className="inline-block text-cyan-400 font-medium hover:text-pink-400 transition-all duration-300 hover:translate-x-2"
+              >
+                View Project →
+              </a>
             </div>
-            <div class="skills-container glass-container">
-                <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Tech Stack</h3>
-                <div class="skills-grid">
-                    <div class="skill-item glass-container">
-                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">⚛️</div>
-                        <div>React</div>
-                    </div>
-                    <div class="skill-item glass-container">
-                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🟢</div>
-                        <div>Node.js</div>
-                    </div>
-                    <div class="skill-item glass-container">
-                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🐍</div>
-                        <div>Python</div>
-                    </div>
-                    <div class="skill-item glass-container">
-                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">☁️</div>
-                        <div>AWS</div>
-                    </div>
-                    <div class="skill-item glass-container">
-                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🗄️</div>
-                        <div>PostgreSQL</div>
-                    </div>
-                    <div class="skill-item glass-container">
-                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔷</div>
-                        <div>TypeScript</div>
-                    </div>
-                </div>
-            </div>
+          ))}
         </div>
-    </section>
+      </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="projects section">
-        <h2>Featured Projects</h2>
-        <div class="projects-grid">
-            <div class="project-card glass-container">
-                <h3>E-Commerce Platform</h3>
-                <p>A full-stack e-commerce solution built with React, Node.js, and Stripe integration. Features include real-time inventory management, advanced search, and responsive design.</p>
-                <div class="project-tech">
-                    <span class="tech-tag">React</span>
-                    <span class="tech-tag">Node.js</span>
-                    <span class="tech-tag">PostgreSQL</span>
-                    <span class="tech-tag">Stripe</span>
-                </div>
-                <a href="#" class="project-link">View Project →</a>
-            </div>
-
-            <div class="project-card glass-container">
-                <h3>Task Management App</h3>
-                <p>A collaborative project management tool with real-time updates, drag-and-drop functionality, and team collaboration features.</p>
-                <div class="project-tech">
-                    <span class="tech-tag">Vue.js</span>
-                    <span class="tech-tag">Express</span>
-                    <span class="tech-tag">Socket.io</span>
-                    <span class="tech-tag">MongoDB</span>
-                </div>
-                <a href="#" class="project-link">View Project →</a>
-            </div>
-
-            <div class="project-card glass-container">
-                <h3>AI-Powered Analytics Dashboard</h3>
-                <p>A data visualization platform with machine learning insights, featuring interactive charts and predictive analytics for business intelligence.</p>
-                <div class="project-tech">
-                    <span class="tech-tag">Python</span>
-                    <span class="tech-tag">Django</span>
-                    <span class="tech-tag">TensorFlow</span>
-                    <span class="tech-tag">D3.js</span>
-                </div>
-                <a href="#" class="project-link">View Project →</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Blog Section -->
-    <section id="blog" class="blog section">
-        <h2>Latest Blog Posts</h2>
-        <div class="blog-grid">
-            <article class="blog-card glass-container">
-                <div class="blog-date">March 15, 2024</div>
-                <h3>Building Scalable React Applications</h3>
-                <p>Best practices for architecting large-scale React applications with performance and maintainability in mind.</p>
-                <a href="#" class="project-link">Read More →</a>
+      {/* Blog Section */}
+      <section id="blog" className="py-16 px-8 max-w-6xl mx-auto opacity-0 translate-y-12 animate-[fadeInUp_0.8s_ease-out_0.8s_forwards]">
+        <h2 className="text-4xl font-bold text-center mb-12 text-cyan-400">Latest Blog Posts</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {[
+            {
+              date: 'March 15, 2024',
+              title: 'Building Scalable React Applications',
+              description: 'Best practices for architecting large-scale React applications with performance and maintainability in mind.'
+            },
+            {
+              date: 'March 8, 2024',
+              title: 'Modern CSS Techniques',
+              description: 'Exploring the latest CSS features including container queries, cascade layers, and advanced selectors.'
+            },
+            {
+              date: 'February 28, 2024',
+              title: 'Optimizing Node.js Performance',
+              description: 'Advanced techniques for improving Node.js application performance and handling high-traffic scenarios.'
+            }
+          ].map((post, index) => (
+            <article 
+              key={index}
+              className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 transition-all duration-300 hover:-translate-y-2 hover:rotate-x-1 hover:shadow-[0_25px_50px_rgba(124,58,237,0.2)] cursor-pointer"
+            >
+              <div className="text-sm text-slate-400 mb-2">{post.date}</div>
+              <h3 className="text-xl font-bold mb-4 text-cyan-400">{post.title}</h3>
+              <p className="text-slate-300 mb-4 leading-relaxed">{post.description}</p>
+              <a 
+                href="#" 
+                className="inline-block text-cyan-400 font-medium hover:text-pink-400 transition-all duration-300 hover:translate-x-2"
+              >
+                Read More →
+              </a>
             </article>
-
-            <article class="blog-card glass-container">
-                <div class="blog-date">March 8, 2024</div>
-                <h3>Modern CSS Techniques</h3>
-                <p>Exploring the latest CSS features including container queries, cascade layers, and advanced selectors.</p>
-                <a href="#" class="project-link">Read More →</a>
-            </article>
-
-            <article class="blog-card glass-container">
-                <div class="blog-date">February 28, 2024</div>
-                <h3>Optimizing Node.js Performance</h3>
-                <p>Advanced techniques for improving Node.js application performance and handling high-traffic scenarios.</p>
-                <a href="#" class="project-link">Read More →</a>
-            </article>
+          ))}
         </div>
-    </section>
+      </section>
 
-    <!-- Resume Section -->
-    <section id="resume" class="resume section">
-        <h2>Resume</h2>
-        <div class="resume-content glass-container">
-            <a href="#" class="download-btn">Download PDF Resume</a>
-            <h3 style="color: var(--primary-color); margin: 2rem 0 1rem;">Key Highlights</h3>
-            <ul class="resume-highlights">
-                <li>5+ years of full-stack development experience</li>
-                <li>Led development of 15+ web applications from concept to deployment</li>
-                <li>Expertise in React, Node.js, Python, and cloud technologies</li>
-                <li>Strong background in agile methodologies and DevOps practices</li>
-                <li>Active contributor to open-source projects with 1000+ GitHub stars</li>
-                <li>Mentored 20+ junior developers through code reviews and pair programming</li>
-            </ul>
+      {/* Resume Section */}
+      <section id="resume" className="py-16 px-8 max-w-4xl mx-auto text-center opacity-0 translate-y-12 animate-[fadeInUp_0.8s_ease-out_1s_forwards]">
+        <h2 className="text-4xl font-bold mb-8 text-cyan-400">Resume</h2>
+        <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-[0_8px_32px_rgba(0,212,255,0.15)] max-w-2xl mx-auto">
+          <a 
+            href="#" 
+            className="inline-block px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-full transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:shadow-[0_15px_35px_rgba(124,58,237,0.4)] mb-8"
+          >
+            Download PDF Resume
+          </a>
+          <h3 className="text-2xl font-bold mb-6 text-cyan-400">Key Highlights</h3>
+          <ul className="text-left space-y-3">
+            {[
+              '5+ years of full-stack development experience',
+              'Led development of 15+ web applications from concept to deployment',
+              'Expertise in React, Node.js, Python, and cloud technologies',
+              'Strong background in agile methodologies and DevOps practices',
+              'Active contributor to open-source projects with 1000+ GitHub stars',
+              'Mentored 20+ junior developers through code reviews and pair programming'
+            ].map((highlight, index) => (
+              <li key={index} className="flex items-start">
+                <span className="text-cyan-400 mr-3 mt-1">▶</span>
+                <span className="text-slate-300">{highlight}</span>
+              </li>
+            ))}
+          </ul>
         </div>
-    </section>
+      </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact section">
-        <h2>Get In Touch</h2>
-        <div class="contact-content">
-            <form class="contact-form glass-container">
-                <div class="form-group">
-                    <label for="name">Your Name</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" rows="5" required></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Send Message</button>
-            </form>
-
-            <div class="social-links glass-container">
-                <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Connect With Me</h3>
-                <a href="#" class="social-link">
-                    <span style="font-size: 1.5rem;">💼</span>
-                    <span>LinkedIn</span>
-                </a>
-                <a href="#" class="social-link">
-                    <span style="font-size: 1.5rem;">🐙</span>
-                    <span>GitHub</span>
-                </a>
-                <a href="#" class="social-link">
-                    <span style="font-size: 1.5rem;">🐦</span>
-                    <span>Twitter</span>
-                </a>
-                <a href="#" class="social-link">
-                    <span style="font-size: 1.5rem;">📧</span>
-                    <span>alex@example.com</span>
-                </a>
+      {/* Contact Section */}
+      <section id="contact" className="py-16 px-8 max-w-4xl mx-auto opacity-0 translate-y-12 animate-[fadeInUp_0.8s_ease-out_1.2s_forwards]">
+        <h2 className="text-4xl font-bold text-center mb-12 text-cyan-400">Get In Touch</h2>
+        <div className="grid md:grid-cols-2 gap-8">
+          <form className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-[0_8px_32px_rgba(0,212,255,0.15)]">
+            <div className="mb-6">
+              <label htmlFor="name" className="block text-slate-300 mb-2">Your Name</label>
+              <input 
+                type="text" 
+                id="name" 
+                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:border-cyan-400 focus:shadow-[0_0_20px_rgba(0,212,255,0.2)] transition-all duration-300"
+                required 
+              />
             </div>
-        </div>
-    </section>
+            <div className="mb-6">
+              <label htmlFor="email" className="block text-slate-300 mb-2">Email Address</label>
+              <input 
+                type="email" 
+                id="email" 
+                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:border-cyan-400 focus:shadow-[0_0_20px_rgba(0,212,255,0.2)] transition-all duration-300"
+                required 
+              />
+            </div>
+            <div className="mb-6">
+              <label htmlFor="message" className="block text-slate-300 mb-2">Message</label>
+              <textarea 
+                id="message" 
+                rows={5}
+                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:border-cyan-400 focus:shadow-[0_0_20px_rgba(0,212,255,0.2)] transition-all duration-300 resize-vertical"
+                required
+              ></textarea>
+            </div>
+            <button 
+              type="submit" 
+              className="w-full px-8 py-4 bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-semibold rounded-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,212,255,0.3)]"
+            >
+              Send Message
+            </button>
+          </form>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-social">
-            <a href="#">LinkedIn</a>
-            <a href="#">GitHub</a>
-            <a href="#">Twitter</a>
-            <a href="#">Email</a>
+          <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-[0_8px_32px_rgba(0,212,255,0.15)]">
+            <h3 className="text-2xl font-bold mb-6 text-cyan-400">Connect With Me</h3>
+            <div className="space-y-4">
+              {[
+                { icon: '💼', label: 'LinkedIn' },
+                { icon: '🐙', label: 'GitHub' },
+                { icon: '🐦', label: 'Twitter' },
+                { icon: '📧', label: 'alex@example.com' }
+              ].map((social, index) => (
+                <a 
+                  key={index}
+                  href="#" 
+                  className="flex items-center gap-4 text-slate-300 hover:text-cyan-400 hover:bg-white/10 p-4 rounded-xl transition-all duration-300 hover:translate-x-3"
+                >
+                  <span className="text-2xl">{social.icon}</span>
+                  <span className="font-medium">{social.label}</span>
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
-        <p>&copy; 2024 Alex Chen. All rights reserved. Built with passion and modern web technologies.</p>
-    </footer>
-</body>
-</html>
-        `
-      }} />
+      </section>
+
+      {/* Footer */}
+      <footer className="text-center py-8 px-8 border-t border-white/20 mt-16">
+        <div className="flex justify-center gap-8 mb-4">
+          {['LinkedIn', 'GitHub', 'Twitter', 'Email'].map((social, index) => (
+            <a 
+              key={index}
+              href="#" 
+              className="text-slate-400 hover:text-cyan-400 transition-all duration-300 hover:-translate-y-1 text-lg font-medium"
+            >
+              {social}
+            </a>
+          ))}
+        </div>
+        <p className="text-slate-400">
+          &copy; 2024 Alex Chen. All rights reserved. Built with passion and modern web technologies.
+        </p>
+      </footer>
+
+      <style jsx>{`
+        html {
+          scroll-behavior: smooth;
+        }
+        
+        @keyframes slideDown {
+          from {
+            opacity: 0;
+            transform: translateX(-50%) translateY(-50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+          }
+        }
+        
+        @keyframes fadeInUp {
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-20px); }
+        }
+      `}</style>
     </div>
   );
 };
